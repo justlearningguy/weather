@@ -28,7 +28,6 @@ inputField.addEventListener('keypress', function(e) {
 async function current(location) {
     let res = await fetch(`http://api.weatherapi.com/v1/forecast.json?key=f83add6bc2b747a4a9d74744241106&q=${location}&days=4`);
     res = await res.json();
-    console.log(res);
     //current weather
     let date = new Date(res.location.localtime);
     date = date;
