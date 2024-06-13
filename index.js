@@ -30,7 +30,6 @@ async function current(location) {
     res = await res.json();
     //current weather
     let date = new Date(res.location.localtime);
-    date = date;
     tempShow.innerText = `${Math.round(res.current.temp_c)}°C`;
     locationNameShow.innerText = `${res.location.name}, ${res.location.country}`;
     humidityShow.innerText = `${res.current.humidity}%`;
@@ -43,11 +42,9 @@ async function current(location) {
     todayDate.innerText = `${months[date.getMonth()]} ${date.getDate()}, ${weekDays[date.getDay()]}`;
     sunriseShow.innerText = res.forecast.forecastday[0].astro.sunrise;
     sunsetShow.innerText = res.forecast.forecastday[0].astro.sunset;
-
     //today at block
     hoursBlock.innerHTML = '';
-    for(let i= date.getHours()+1; i<=23; i++) {
-      
+    for(let i= date.getHours()+1; i<=23; i++) { 
       let timeDateObj = new Date(res.forecast.forecastday[0].hour[i].time);
       timeDateObj = timeDateObj.getHours();
       if (timeDateObj > 12) {
@@ -81,13 +78,14 @@ async function current(location) {
     //forecast
     forecastBlock.innerHTML = '';
     for(let i=0;i<4;i++) {
+        let forecastDateObj = new Date(res.forecast.forecastday[i].date);
         let newDay = window.document.createElement('div');
         newDay.classList = 'forecastDayBlock'
         let dateBlock = window.document.createElement('div');
         dateBlock.classList = 'forecastDayDateBlock';
         let dateNumber = window.document.createElement('span');
         dateNumber.classList = 'forecastDayDateNumber';
-        dateNumber.innerText = `${months[Number(res.forecast.forecastday[i].date.slice(5,7))-1]} ${Number(res.forecast.forecastday[i].date.slice(8,10))}`;
+        dateNumber.innerText = `${months[forecastDateObj.getMonth()]} ${forecastDateObj.getDate()}`;
         let dateWeekday = window.document.createElement('span');
         dateWeekday.classList = 'forecastDayDateWeekday';
         if(i===0) {
@@ -97,7 +95,7 @@ async function current(location) {
           dateWeekday.innerText = 'Tommorow'
         }
         else {
-          dateWeekday.innerText = `${weekDays[date.getDay()+i]}`
+          dateWeekday.innerText = `${weekDays[forecastDateObj.getDay()]}`
         }
         let DayImg = window.document.createElement('img');
         DayImg.classList = 'forecastDayImg';
