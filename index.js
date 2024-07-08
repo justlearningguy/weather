@@ -77,7 +77,7 @@ async function current(location) {
 
     //forecast
     forecastBlock.innerHTML = '';
-    for(let i=0;i<4;i++) {
+    for(let i=0;i<3;i++) {
         let forecastDateObj = new Date(res.forecast.forecastday[i].date);
         let newDay = window.document.createElement('div');
         newDay.classList = 'forecastDayBlock'
